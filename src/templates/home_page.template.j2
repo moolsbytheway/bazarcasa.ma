@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html dir="rtl" lang=ar>
+<head>
+    <meta property="x-last-update" content="{{ last_update_date }}">
+    <title>بازار كازا - توفير و توصيل منتجات الجملة إلى موريتانيا</title>
+    <meta name="author" content="Bazarcasa">
+    <meta name="copyright" content="Bazarcasa">
+    <meta name="robots" content="index, follow">
+
+    <link rel="icon" type="image/png" href="/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-language" content="ar">
+    <meta property="og:type" content="website">
+
+    <meta name="description"
+          content="بازار كازا - متخصصون في توفير و توصيل منتجات الجملة إلى موريتانيا
+          نحن متخصصون في إمدادات الجملة لمجموعة متنوعة من المنتجات">
+    <meta name="keywords"
+          content="توصيل منتجات الجملة من المغرب إلى موريتانيا, موردون الجملة من المغرب في موريتانيا, متخصصون في الجملة من المغرب إلى موريتانيا, بيع الجملة للأعمال من المغرب إلى موريتانيا, منتجات جملة متنوعة من المغرب في موريتانيا, إمدادات تجارية بالجملة من المغرب إلى موريتانيا, خدمات توصيل الجملة من المغرب إلى موريتانيا, موريتانيا بازار الجملة من المغرب, شراء الجملة من المغرب في موريتانيا, تجارة الجملة المتخصصة من المغرب إلى موريتانيا">
+
+    <link rel="canonical" href="https://www.bazarcasa.ma/">
+    <meta property="og:site_name" content="Bazarcasa">
+
+    <meta property="og:title" content="بازار كازا - توفير و توصيل منتجات الجملة إلى موريتانيا">
+    <meta property="og:description"
+          content="بازار كازا - متخصصون في توفير و توصيل منتجات الجملة إلى موريتانيا
+          نحن متخصصون في إمدادات الجملة لمجموعة متنوعة من المنتجات">
+    <meta property="og:image" content="https://www.bazarcasa.ma/img/logo.png">
+    <meta property="og:url" content="https://www.bazarcasa.ma/">
+
+    <meta property="twitter:title" content="بازار كازا - توفير و توصيل منتجات الجملة إلى موريتانيا">
+    <meta property="twitter:description"
+          content="بازار كازا - متخصصون في توفير و توصيل منتجات الجملة إلى موريتانيا
+          نحن متخصصون في إمدادات الجملة لمجموعة متنوعة من المنتجات">
+    <meta property="twitter:image" content="https://www.bazarcasa.ma/img/logo.png">
+    <meta property="twitter:card" content="https://www.bazarcasa.ma/img/logo.png">
+    <meta property="twitter:url" content="https://www.bazarcasa.ma/">
+    <meta property="facebook:title" content="بازار كازا - توفير و توصيل منتجات الجملة إلى موريتانيا">
+    <meta property="facebook:description"
+          content="بازار كازا - متخصصون في توفير و توصيل منتجات الجملة إلى موريتانيا
+          نحن متخصصون في إمدادات الجملة لمجموعة متنوعة من المنتجات">
+    <meta property="facebook:image" content="https://www.bazarcasa.ma/img/logo.png">
+    <meta property="facebook:card" content="https://www.bazarcasa.ma/img/logo.png">
+    <meta property="facebook:url" content="https://www.bazarcasa.ma/">
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="flex flex-col min-h-screen" style="max-width:1000px; margin:auto;">
+    <header class="flex h-16 items-center justify-between px-4 md:px-6">
+        <a class="flex items-center gap-2" href="#">
+        <span class="text-lg font-semibold">
+            <img style="height:150px" src="img/logo-transparent.png" alt="Bazarcasa logo"/></span></a>
+        <nav class="hidden md:flex gap-6">
+            {% for category in categories %}
+                <a class="text-sm font-medium hover:underline" href="#">
+                    {{ category }}
+                </a>
+            {% endfor %}
+        </nav>
+    </header>
+    <main class="flex-1">
+        {{ by_category_packages | safe }}
+    </main>
+</div>
+
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=G-LXQ2575TKS"></script>
+<script async defer src="google-tag.js"></script>
+
+</body>
+</html>
