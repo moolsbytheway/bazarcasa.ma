@@ -11,20 +11,7 @@ env = Environment(
     autoescape=select_autoescape(['html', 'xml'])
 )
 
-combined_data = []
-
-# Read each JSON file and add its contents to combined_data
-for filename in os.listdir(json_files_path):
-    if filename.endswith('.json'):
-        with open(os.path.join(json_files_path, filename), 'r') as file:
-            data = json.load(file)
-            combined_data.extend(data)
-
-
-# Function to read JSON data
-def read_json(filename):
-    with open(filename, 'r') as file:
-        return json.load(file)
+combined_data = read_csv_files()
 
 
 def get_last_update_date(package):
@@ -33,18 +20,20 @@ def get_last_update_date(package):
 
 def generate_packages_list(product, root_image_path=""):
     price_formatted = float(product['price'])
-    price_formatted = f"{price_formatted:,.0f} UM"
+    price_formatted = f"{price_formatted:,.0f}"
 
     template = env.get_template('fragment/packages_list.template.j2')
     return template.render(product=product, price_formatted=price_formatted,
                            root_image_path=root_image_path)
 
 
-def generate_home_page_html(by_category_packages, categories):
+def generate_home_page_html(by_category_packages, categories, cat_map, filter_on_category=None):
     template = env.get_template('home_page.template.j2')
     last_update_date = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
     return template.render(by_category_packages=by_category_packages,
                            categories=categories,
+                           filter_on_category=filter_on_category,
+                           cat_map=cat_map,
                            last_update_date=last_update_date)
 
 
@@ -66,16 +55,20 @@ def generate_html(packages):
     # group by category
     by_category_packages = defaultdict(list)
     for item in packages:
-        by_category_packages[item["category"]].append(item)
+        by_category_packages[item["category_slug"]].append(item)
 
-    categories = extract_categories(packages)
+    cat_map = {}
+    category_names = extract_field(packages, "category")
+    slugs = extract_field(combined_data, "category_slug")
+    for i in range(len(slugs)):
+        cat_map[slugs[i]] = category_names[i]
 
     by_dest_packages_list = ""
     for category, items in by_category_packages.items():
         by_dest_packages_list += f"""
                 <section class="w-full" style="padding-top:20px;padding-bottom:40px;">
         <div class="container px-4 md:px-6">
-        <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{category}</h1>
+        <h1 style="color:#cd8454" class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{cat_map[category]}</h1>
         <div class="grid grid-cols-4 gap-6 mt-8">
         """
 
@@ -88,9 +81,29 @@ def generate_html(packages):
         </section>
         """
 
-    home_page_html_content = generate_home_page_html(by_dest_packages_list, categories)
+    category_pages_map = {}
+    home_page_html_content = generate_home_page_html(by_dest_packages_list, slugs, cat_map)
 
-    return home_page_html_content
+    for category, items in by_category_packages.items():
+        details_by_dest_packages_list = f"""
+                <section class="w-full" style="padding-top:20px;padding-bottom:40px;">
+        <div class="container px-4 md:px-6">
+        <h1 style="color:#cd8454" class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{cat_map[category]}</h1>
+        <div class="grid grid-cols-4 gap-6 mt-8">
+        """
+
+        for item in items:
+            details_by_dest_packages_list += generate_packages_list(item)
+
+        details_by_dest_packages_list += """
+                </div>
+            </div>
+        </section>
+        """
+        category_pages_map[category] = generate_home_page_html(details_by_dest_packages_list, slugs, cat_map,
+                                                               category)
+
+    return home_page_html_content, category_pages_map
 
 
 if __name__ == "__main__":
@@ -98,11 +111,20 @@ if __name__ == "__main__":
 
     copy_assets()
 
-    html_output = generate_html(combined_data)
+    category_slugs = extract_field(combined_data, "category_slug")
+
+    for cat_slug in category_slugs:
+        create_folder_if_not_exists(output_folder + "/html/categories/" + cat_slug)
+
+    html_output, category_pages = generate_html(combined_data)
 
     with open(output_folder + "/html/index.html", 'w') as html_file:
         html_file.write(htmlmin.minify(html_output))
 
-    print("HTML file created")
+    for category_slug, page_data in category_pages.items():
+        with open(output_folder + "/html/categories/" + category_slug + "/index.html", 'w') as html_file:
+            html_file.write(htmlmin.minify(page_data))
+
+    print("HTML files created")
 
     print_elapsed_time(start_time)
