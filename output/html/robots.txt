@@ -1,4 +1,0 @@
-Sitemap: https://www.bazarcasa.ma/sitemap.xml
-
-User-agent: *
-Allow: /

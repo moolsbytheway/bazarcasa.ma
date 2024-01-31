@@ -43,7 +43,7 @@ def build_sitemap():
 
     add_url_to_sitemap(sitemap_root,
                        "https://www.bazarcasa.ma/",
-                       "https://www.bazarcasa.ma/img/logo.png")
+                       "https://www.bazarcasa.ma/img/logo.webp")
 
     tree = ET.ElementTree(sitemap_root)
     tree.write(output_folder + "/html/sitemap.xml", encoding="utf-8", xml_declaration=True)
