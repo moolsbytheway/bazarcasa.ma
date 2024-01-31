@@ -3,9 +3,9 @@
 /img/placeholder.webp
 {% else %}
 {{ product.image }}
-{% endif %}' alt="Product 2" width="400" height="300"
+{% endif %}' alt="{{ product.description }}" width="400" height="300"
          class="object-cover w-full h-60"
-         style="aspect-ratio: 400 / 300; object-fit: cover;">
+         style="aspect-ratio: 280 / 280; object-fit: cover;">
     <div class="bg-white p-4"><h3 class="font-semibold text-lg md:text-xl">
         {{ product.slug }}
     </h3>
