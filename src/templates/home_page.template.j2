@@ -54,7 +54,8 @@
     <header class="flex h-16 items-center justify-between px-4 md:px-6">
         <a class="flex items-center gap-2" href="/">
         <span class="text-lg font-semibold">
-            <img style="height:150px" src="/img/logo-transparent.webp" alt="Bazarcasa logo"/></span></a>
+            <img width="auto" height="150px" style="width:auto;height:150px" src="/img/logo-transparent.webp"
+                 alt="Bazarcasa logo"/></span></a>
         <nav class="md:flex gap-6 {% if categories|length > 3 %} hidden {% endif %}">
             <a style="font-weight: bold;
                     {% if None == filter_on_category %}
@@ -108,10 +109,14 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;600&display=swap" rel="stylesheet">
-<style>html, :host {
-    font-family: 'Rubik', sans-serif !important;
-}</style>
+<link media="screen and (min-width: 1024px)"
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;600&display=swap" rel="stylesheet">
+<style>
+    @media screen and (min-width: 1024px) {
+        html, :host {
+            font-family: 'Rubik', sans-serif !important;
+        }
+    }</style>
 <script async defer src="https://www.googletagmanager.com/gtag/js?id=G-LXQ2575TKS"></script>
 <script async defer src="google-tag.js"></script>
 
