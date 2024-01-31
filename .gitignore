@@ -1,0 +1,3 @@
+./venv/
+push_deploy.sh
+output/
