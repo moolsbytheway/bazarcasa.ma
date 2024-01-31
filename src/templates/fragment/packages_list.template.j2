@@ -1,5 +1,9 @@
-<div class="relative group overflow-hidden rounded-lg" style="box-shadow:0 1px 3px 0 #000000a1">
-    <img src='{{ product.image }}' alt="Product 2" width="400" height="300"
+<div class="relative group overflow-hidden rounded-lg" style="box-shadow:0 0 3px 0 #000000a1">
+    <img src='{% if product.image == "" %}
+/img/placeholder.webp
+{% else %}
+{{ product.image }}
+{% endif %}' alt="Product 2" width="400" height="300"
          class="object-cover w-full h-60"
          style="aspect-ratio: 400 / 300; object-fit: cover;">
     <div class="bg-white p-4"><h3 class="font-semibold text-lg md:text-xl">
@@ -7,7 +11,7 @@
     </h3>
         <p class="text-sm text-gray-500">BC-000{{ product.id }}</p><h4
                 class="font-semibold text-base md:text-lg"> إبتداءً من {{ price_formatted + " أوقية " }}</h4>
-    <p class="text-sm text-gray-500"> {{ product.description }} </p>
+        <p class="text-sm text-gray-500"> {{ product.description }} </p>
     </div>
 </div>
 
