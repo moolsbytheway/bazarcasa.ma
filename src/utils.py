@@ -37,7 +37,7 @@ def add_url_to_sitemap(sitemap_root, loc, image_loc):
     image_loc_elem.text = image_loc
 
     image_caption_elem = ElementTree.SubElement(image_elem, "image:caption")
-    image_caption_elem.text = image_loc
+    image_caption_elem.text = "بازار كازا - توفير و توصيل منتجات الجملة إلى موريتانيا"
 
 
 def copy_assets():
