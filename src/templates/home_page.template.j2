@@ -43,7 +43,25 @@
     <meta property="facebook:image" content="https://www.bazarcasa.ma/img/logo.webp">
     <meta property="facebook:card" content="https://www.bazarcasa.ma/img/logo.webp">
     <meta property="facebook:url" content="https://www.bazarcasa.ma/">
+    <style>
+        @media all and (max-width: 500px) {
+            header {
+                justify-content: center !important;
+                flex-direction: column !important;
+                height: auto !important;
+                margin-bottom: 1em;
 
+                a {
+                    height: 80px;
+                }
+
+                nav a {
+                    margin-left: .5em;
+                    margin-right: .5em;
+                }
+            }
+        }
+    </style>
 
     <link rel="stylesheet" href="/style.css">
 </head>
@@ -56,7 +74,8 @@
         <span class="text-lg font-semibold">
             <img width="150" height="150" style="width:auto;height:150px" src="/img/logo-transparent.webp"
                  alt="Bazarcasa logo"/></span></a>
-        <nav class="md:flex gap-6 hidden">
+
+        <nav class="md:flex gap-6">
             <a style="font-weight: bold;
                     {% if None == filter_on_category %}
                         color: #cd8454;
@@ -98,7 +117,7 @@
         </p>
 
         <a href="tel:+212701192656"
-           style="background-color: #335110"
+           style="background-color: #335110;font-weight: normal"
            class="ring-offset-background focus-visible:ring-ring hover:bg-primary/90 mt-4 inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">تواصل
             معنا على الواتساب</a>
     </div>
