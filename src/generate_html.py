@@ -37,7 +37,7 @@ def generate_home_page_html(by_category_packages, categories, cat_map, filter_on
                            last_update_date=last_update_date)
 
 
-def build_sitemap():
+def build_sitemap(categories):
     sitemap_root = ET.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
     sitemap_root.set("xmlns:image", "http://www.google.com/schemas/sitemap-image/1.1")
 
@@ -45,12 +45,16 @@ def build_sitemap():
                        "https://www.bazarcasa.ma/",
                        "https://www.bazarcasa.ma/img/logo.webp")
 
+    for category in categories:
+        add_url_to_sitemap(sitemap_root,
+                           "https://www.bazarcasa.ma/categories/" + category,
+                           "https://www.bazarcasa.ma/img/logo.webp")
+
     tree = ET.ElementTree(sitemap_root)
     tree.write(output_folder + "/html/sitemap.xml", encoding="utf-8", xml_declaration=True)
 
 
 def generate_html(packages):
-    build_sitemap()
 
     # group by category
     by_category_packages = defaultdict(list)
@@ -102,6 +106,9 @@ def generate_html(packages):
         """
         category_pages_map[category] = generate_home_page_html(details_by_dest_packages_list, slugs, cat_map,
                                                                category)
+
+
+    build_sitemap(slugs)
 
     return home_page_html_content, category_pages_map
 
