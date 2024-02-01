@@ -6,6 +6,8 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from utils import *
 
+SHOULD_SHOW_PRICE = False
+
 env = Environment(
     loader=FileSystemLoader('src/templates'),
     autoescape=select_autoescape(['html', 'xml'])
@@ -24,6 +26,7 @@ def generate_packages_list(product, root_image_path=""):
 
     template = env.get_template('fragment/packages_list.template.j2')
     return template.render(product=product, price_formatted=price_formatted,
+                           show_price=SHOULD_SHOW_PRICE,
                            root_image_path=root_image_path)
 
 

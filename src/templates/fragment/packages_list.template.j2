@@ -9,8 +9,10 @@
     <div class="bg-white p-4"><h3 class="font-semibold text-lg md:text-xl">
         {{ product.slug }}
     </h3>
-        <p class="text-sm text-gray-500">BC-000{{ product.id }}</p><h4
-                class="font-semibold text-base md:text-lg"> إبتداءً من {{ price_formatted + " أوقية " }}</h4>
+        <p class="text-sm" style="color:darkred">BC-000{{ product.id }}</p>
+        {% if show_price %}
+            <h4 style="color:#d27d00" class="font-semibold text-base md:text-lg"> إبتداءً من {{ price_formatted + " أوقية " }}</h4>
+        {% endif %}
         <p class="text-sm text-gray-500"> {{ product.description }} </p>
     </div>
 </div>
