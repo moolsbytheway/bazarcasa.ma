@@ -46,12 +46,12 @@ def build_sitemap(categories):
 
     add_url_to_sitemap(sitemap_root,
                        "https://www.bazarcasa.ma/",
-                       "https://www.bazarcasa.ma/img/logo.webp")
+                       "https://www.bazarcasa.ma/img/logo.png")
 
     for category in categories:
         add_url_to_sitemap(sitemap_root,
                            "https://www.bazarcasa.ma/categories/" + category,
-                           "https://www.bazarcasa.ma/img/logo.webp")
+                           "https://www.bazarcasa.ma/img/logo.png")
 
     tree = ET.ElementTree(sitemap_root)
     tree.write(output_folder + "/html/sitemap.xml", encoding="utf-8", xml_declaration=True)
