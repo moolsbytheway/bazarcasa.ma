@@ -61,9 +61,10 @@
             <img width="150" height="70" style="width:150px;" src="/img/logo.webp"
                  alt="Bazarcasa logo"/></span></a>
 
-        <nav class="md:flex gap-6">
 
-            {% if by_category_packages != "" %}
+        {% if by_category_packages != "" %}
+            <nav class="md:flex gap-6">
+
                 <a style="font-weight: bold;
                         {% if None == filter_on_category %}
                             color: #cd8454;
@@ -71,21 +72,22 @@
                         " class="text-sm font-medium hover:underline" href="/">
                     جميع المنتجات
                 </a>
-            {% endif %}
-            {% for category in categories %}
-                <a style="font-weight: bold; {% if category == filter_on_category %}
-                    color: #cd8454;
-                {% endif %} " class="text-sm font-medium hover:underline" href="/categories/{{ category }}">
-                    {{ cat_map[category] }}
-                </a>
-            {% endfor %}
-        </nav>
+                {% for category in categories %}
+                    <a style="font-weight: bold; {% if category == filter_on_category %}
+                        color: #cd8454;
+                    {% endif %} " class="text-sm font-medium hover:underline" href="/categories/{{ category }}">
+                        {{ cat_map[category] }}
+                    </a>
+                {% endfor %}
+            </nav>
+        {% endif %}
     </header>
 
 
     <div class="flex flex-col items-center justify-center rounded-md p-4 shadow-md" style="background-color: #ff8f4e45">
         <div class="flex items-center space-x-2">
-            <h1 style="text-align: center" class="text-lg font-semibold text-gray-700">بازار كازا - تسوق المنتجات بالجملة واستمتع بالتوصيل السريع إلى موريتانيا</h1>
+            <h1 style="text-align: center" class="text-lg font-semibold text-gray-700">بازار كازا - تسوق المنتجات
+                بالجملة واستمتع بالتوصيل السريع إلى موريتانيا</h1>
         </div>
         <p style="text-align: center" class="mt-2 text-sm text-gray-600">يتم احتساب سعر التوصيل اعتمادا على عدد المنتجات
             المطلوبة</p>
@@ -112,8 +114,8 @@
                     هنا قريبًا</h2>
 
                 <svg style="width: 90px;height: 90px;margin: 1em auto auto;"
-                        width="800px" height="800px" viewBox="0 0 1024 1024" class="icon" version="1.1"
-                        xmlns="http://www.w3.org/2000/svg">
+                     width="800px" height="800px" viewBox="0 0 1024 1024" class="icon" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M660 103.2l-149.6 76 2.4 1.6-2.4-1.6-157.6-80.8L32 289.6l148.8 85.6v354.4l329.6-175.2 324.8 175.2V375.2L992 284.8z"
                           fill="#FFFFFF"/>
                     <path d="M180.8 737.6c-1.6 0-3.2 0-4-0.8-2.4-1.6-4-4-4-7.2V379.2L28 296c-2.4-0.8-4-4-4-6.4s1.6-5.6 4-7.2l320.8-191.2c2.4-1.6 5.6-1.6 8 0l154.4 79.2L656 96c2.4-1.6 4.8-0.8 7.2 0l332 181.6c2.4 1.6 4 4 4 7.2s-1.6 5.6-4 7.2l-152.8 88v350.4c0 3.2-1.6 5.6-4 7.2-2.4 1.6-5.6 1.6-8 0l-320-174.4-325.6 173.6c-1.6 0.8-2.4 0.8-4 0.8zM48 289.6L184.8 368c2.4 1.6 4 4 4 7.2v341.6l317.6-169.6c2.4-1.6 5.6-1.6 7.2 0l312.8 169.6V375.2c0-3.2 1.6-5.6 4-7.2L976 284.8 659.2 112.8 520 183.2c0 0.8-0.8 0.8-0.8 1.6-2.4 4-7.2 4.8-11.2 2.4l-1.6-1.6h-0.8l-152.8-78.4L48 289.6z"
