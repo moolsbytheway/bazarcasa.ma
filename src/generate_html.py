@@ -1,19 +1,8 @@
-import xml.etree.ElementTree as ET
 import htmlmin
 from collections import defaultdict
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
-
 from utils import *
-
-DEFAULT_PAGE_TITLE = 'بازار كازا - توفير و توصيل منتجات الجملة إلى موريتانيا'
-
-env = Environment(
-    loader=FileSystemLoader('src/templates'),
-    autoescape=select_autoescape(['html', 'xml'])
-)
-
-combined_data = read_csv_files()
+from sitemap_builder import *
 
 
 def get_last_update_date(package):
@@ -40,23 +29,6 @@ def generate_home_page_html(by_category_packages, categories, cat_map, filter_on
                            cat_map=cat_map,
                            page_title=page_title,
                            last_update_date=last_update_date)
-
-
-def build_sitemap(categories):
-    sitemap_root = ET.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
-    sitemap_root.set("xmlns:image", "http://www.google.com/schemas/sitemap-image/1.1")
-
-    add_url_to_sitemap(sitemap_root,
-                       "https://www.bazarcasa.ma/",
-                       "https://www.bazarcasa.ma/img/logo.png")
-
-    for category in categories:
-        add_url_to_sitemap(sitemap_root,
-                           "https://www.bazarcasa.ma/categories/" + category,
-                           "https://www.bazarcasa.ma/img/logo.png")
-
-    tree = ET.ElementTree(sitemap_root)
-    tree.write(output_folder + "/html/sitemap.xml", encoding="utf-8", xml_declaration=True)
 
 
 def generate_html(packages):
@@ -120,6 +92,7 @@ def generate_html(packages):
 if __name__ == "__main__":
     start_time = time.time()
 
+    combined_data = read_csv_files()
     copy_assets()
 
     category_slugs = extract_field(combined_data, "category_slug")

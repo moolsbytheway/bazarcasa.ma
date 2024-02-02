@@ -1,13 +1,8 @@
 import shutil
-
+from constants import *
 import time
 import csv
 import os
-from xml.etree import ElementTree
-from datetime import datetime
-
-output_folder = "output"
-product_files_path = "products/current.csv"
 
 
 def create_folder_if_not_exists(folder_path, path_suffix=""):
@@ -18,26 +13,6 @@ def create_folder_if_not_exists(folder_path, path_suffix=""):
 def print_elapsed_time(start_time):
     elapsed_time = time.time() - start_time
     print(f"Took: {elapsed_time:.2f} seconds")
-
-
-def add_url_to_sitemap(sitemap_root, loc, image_loc):
-    current_datetime = datetime.utcnow()
-    lastmod = current_datetime.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
-    url = ElementTree.SubElement(sitemap_root, "url")
-
-    loc_elem = ElementTree.SubElement(url, "loc")
-    loc_elem.text = loc
-
-    lastmod_elem = ElementTree.SubElement(url, "lastmod")
-    lastmod_elem.text = lastmod
-
-    image_elem = ElementTree.SubElement(url, "image:image")
-
-    image_loc_elem = ElementTree.SubElement(image_elem, "image:loc")
-    image_loc_elem.text = image_loc
-
-    image_caption_elem = ElementTree.SubElement(image_elem, "image:caption")
-    image_caption_elem.text = "بازار كازا - توفير و توصيل منتجات الجملة إلى موريتانيا"
 
 
 def copy_assets():
