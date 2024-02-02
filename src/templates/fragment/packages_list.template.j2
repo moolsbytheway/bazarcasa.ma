@@ -1,11 +1,11 @@
-<div class="relative group overflow-hidden rounded-lg" style="box-shadow:0 0 2px 0 #000000a1">
+<div class="relative group overflow-hidden rounded-lg" style="width:300px;box-shadow:0 0 2px 0 #000000a1">
     <img src='{% if product.image == "" %}
 /img/placeholder.webp
 {% else %}
 {{ product.image }}
-{% endif %}' alt="{{ product.description }}" width="400" height="300"
+{% endif %}' alt="{{ product.description }}" width="300" height="300"
          class="object-cover w-full h-60"
-         style="aspect-ratio: 280 / 280; object-fit: cover;">
+         style="aspect-ratio: 300 / 300; width:300px; height:300px; object-fit: cover;">
     <div class="bg-white p-4"><h3 class="font-semibold text-lg md:text-xl">
         {{ product.slug }}
     </h3>

@@ -76,7 +76,7 @@ def generate_html(packages):
                 <section class="w-full" style="padding-top:20px;padding-bottom:40px;">
         <div class="container px-4 md:px-6">
         <h1 style="color:#cd8454" class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{cat_map[category]}</h1>
-        <div class="grid grid-cols-4 gap-6 mt-8">
+        <div style="flex-wrap: wrap" class="flex justify-items-center gap-6 mt-8">
         """
 
         for item in items:
