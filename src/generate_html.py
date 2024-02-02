@@ -6,7 +6,6 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from utils import *
 
-SHOULD_SHOW_PRICE = False
 DEFAULT_PAGE_TITLE = 'بازار كازا - توفير و توصيل منتجات الجملة إلى موريتانيا'
 
 env = Environment(
@@ -27,7 +26,7 @@ def generate_packages_list(product, root_image_path=""):
 
     template = env.get_template('fragment/packages_list.template.j2')
     return template.render(product=product, price_formatted=price_formatted,
-                           show_price=SHOULD_SHOW_PRICE,
+                           show_price=product['price'] != "0",
                            root_image_path=root_image_path)
 
 
