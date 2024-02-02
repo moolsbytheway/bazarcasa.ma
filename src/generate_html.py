@@ -7,6 +7,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from utils import *
 
 SHOULD_SHOW_PRICE = False
+DEFAULT_PAGE_TITLE = 'بازار كازا - توفير و توصيل منتجات الجملة إلى موريتانيا'
 
 env = Environment(
     loader=FileSystemLoader('src/templates'),
@@ -30,13 +31,15 @@ def generate_packages_list(product, root_image_path=""):
                            root_image_path=root_image_path)
 
 
-def generate_home_page_html(by_category_packages, categories, cat_map, filter_on_category=None):
+def generate_home_page_html(by_category_packages, categories, cat_map, filter_on_category=None,
+                            page_title=DEFAULT_PAGE_TITLE):
     template = env.get_template('home_page.template.j2')
     last_update_date = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
     return template.render(by_category_packages=by_category_packages,
                            categories=categories,
                            filter_on_category=filter_on_category,
                            cat_map=cat_map,
+                           page_title=page_title,
                            last_update_date=last_update_date)
 
 
@@ -58,7 +61,6 @@ def build_sitemap(categories):
 
 
 def generate_html(packages):
-
     # group by category
     by_category_packages = defaultdict(list)
     for item in packages:
@@ -107,9 +109,9 @@ def generate_html(packages):
             </div>
         </section>
         """
+        cat_page_title = f"بازار كازا - {cat_map[category]}"
         category_pages_map[category] = generate_home_page_html(details_by_dest_packages_list, slugs, cat_map,
-                                                               category)
-
+                                                               category, cat_page_title)
 
     build_sitemap(slugs)
 
