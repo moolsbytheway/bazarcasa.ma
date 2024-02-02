@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html dir="rtl" lang=ar>
+<head>
+    <meta property="x-last-update" content="{{ last_update_date }}">
+    <title>Products report</title>
+    <meta name="author" content="Bazarcasa">
+    <meta name="copyright" content="Bazarcasa">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-language" content="ar">
+    <meta name="description" content="بازار كازا - تسوق المنتجات بالجملة واستمتع بالتوصيل السريع إلى موريتانيا">
+    <meta name="keywords"
+          content="توصيل منتجات الجملة من المغرب إلى موريتانيا, موردون الجملة من المغرب في موريتانيا, متخصصون في الجملة من المغرب إلى موريتانيا, بيع الجملة للأعمال من المغرب إلى موريتانيا, منتجات جملة متنوعة من المغرب في موريتانيا, إمدادات تجارية بالجملة من المغرب إلى موريتانيا, خدمات توصيل الجملة من المغرب إلى موريتانيا, موريتانيا بازار الجملة من المغرب, شراء الجملة من المغرب في موريتانيا, تجارة الجملة المتخصصة من المغرب إلى موريتانيا">
+
+    <link rel="canonical" href="https://www.bazarcasa.ma/">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 8px;
+            min-width: 100px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            height: 100px; /* Adjust based on your preference */
+            width: auto;
+        }
+
+        .description {
+            max-width: 200px; /* Adjust based on your preference */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        main {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="flex flex-col min-h-screen" style="max-width:1500px; margin:auto;">
+    <h2>CBM: {{ cbm_price }}</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Selling Price (MRO)</th>
+            <th>Unit Price (DH)</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Minimum quantity</th>
+            <th>Dimensions</th>
+            <th>Estimated transport price per item (MRO)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in products %}
+            <tr>
+                <td>BC-000{{ item.id }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.unit_price_dh }}</td>
+                <td>{{ item.category }}</td>
+                <td title="{{ item.description }}" class="description">{{ item.description }}</td>
+                <td><img src="{{ item.image }}" alt="{{ item.slug }}" height="100"></td>
+                <td>{{ item.minimum_quantity }}</td>
+                <td>{{ item.dimensions }}</td>
+                <td>{{ (item.transport_price)|format_price }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

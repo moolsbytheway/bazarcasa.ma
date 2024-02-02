@@ -5,9 +5,9 @@ import csv
 import os
 
 
-def create_folder_if_not_exists(folder_path, path_suffix=""):
-    if not os.path.exists(folder_path + path_suffix):
-        os.makedirs(folder_path + path_suffix)
+def create_folder_if_not_exists(folder_path):
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
 
 
 def print_elapsed_time(start_time):
@@ -48,3 +48,17 @@ def read_csv_files():
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
+
+
+def calculate_transport_price(dimensions):
+    if not dimensions or dimensions == "":
+        return 0
+    try:
+        parts = [float(x) for x in dimensions.split('x')]
+        product = 1
+        for part in parts:
+            product *= (part/100)
+        # Multiply by CBM_PRICE
+        return product * CBM_PRICE
+    except ValueError:
+        return 0
