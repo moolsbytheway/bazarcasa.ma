@@ -46,7 +46,7 @@ def generate_html(products):
         <div style="flex-wrap: wrap" class="flex justify-items-center gap-6 mt-8">
         """
 
-        for item in sorted(items, key=lambda x: x['out_of_stock']):
+        for item in sorted(items, key=lambda x: (-int(x['out_of_stock']), int(x['id'])), reverse=True):
             by_category_products += generate_product_card(item)
 
         by_category_products += """
@@ -66,7 +66,7 @@ def generate_html(products):
         <div style="flex-wrap: wrap" class="flex justify-items-center gap-6 mt-8">
         """
 
-        for item in sorted(items, key=lambda x: x['out_of_stock']):
+        for item in sorted(items, key=lambda x: (-int(x['out_of_stock']), int(x['id'])), reverse=True):
             details_by_dest_products_list += generate_product_card(item)
 
         details_by_dest_products_list += """
