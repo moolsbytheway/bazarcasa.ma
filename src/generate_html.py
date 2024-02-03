@@ -3,6 +3,8 @@ from collections import defaultdict
 
 from utils import *
 from sitemap_builder import *
+
+
 def generate_product_card(product, root_image_path=""):
     price_formatted = float(product['price'])
     price_formatted = f"{price_formatted:,.0f}"
@@ -31,11 +33,12 @@ def generate_html(products):
     for item in products:
         by_category_products_dict[item["category_slug"]].append(item)
 
-    category_slug_map = {}
-    category_names = extract_field(products, "category")
     slugs = extract_field(combined_data, "category_slug")
-    for i in range(len(slugs)):
-        category_slug_map[slugs[i]] = category_names[i]
+
+    category_slug_map = {
+        "dates": "تمور",
+        "cosmetics": "منتجات التجميل"
+    }
 
     by_category_products = ""
     for category, items in by_category_products_dict.items():
@@ -46,7 +49,7 @@ def generate_html(products):
         <div style="flex-wrap: wrap" class="flex justify-items-center gap-6 mt-8">
         """
 
-        for item in sorted(items, key=lambda x: (-int(x['out_of_stock']), int(x['id'])), reverse=True):
+        for item in sorted(items, key=lambda x: (int(x['cat_id']), int(x['id'])), reverse=True):
             by_category_products += generate_product_card(item)
 
         by_category_products += """
@@ -66,7 +69,7 @@ def generate_html(products):
         <div style="flex-wrap: wrap" class="flex justify-items-center gap-6 mt-8">
         """
 
-        for item in sorted(items, key=lambda x: (-int(x['out_of_stock']), int(x['id'])), reverse=True):
+        for item in sorted(items, key=lambda x: (int(x['cat_id']), int(x['id'])), reverse=True):
             details_by_dest_products_list += generate_product_card(item)
 
         details_by_dest_products_list += """
