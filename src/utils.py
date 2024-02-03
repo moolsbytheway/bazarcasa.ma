@@ -48,17 +48,3 @@ def read_csv_files():
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
-
-
-def calculate_transport_price(dimensions):
-    if not dimensions or dimensions == "":
-        return 0
-    try:
-        parts = [float(x) for x in dimensions.split('x')]
-        product = 1
-        for part in parts:
-            product *= (part/100)
-        # Multiply by CBM_PRICE
-        return product * CBM_PRICE
-    except ValueError:
-        return 0

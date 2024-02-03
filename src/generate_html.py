@@ -31,14 +31,6 @@ def generate_home_page_html(by_category_packages, categories, cat_map, filter_on
                            last_update_date=last_update_date)
 
 
-def generate_reports_page_html(products):
-    template = env.get_template('reports.template.j2')
-    last_update_date = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
-    return template.render(products=products,
-                           cbm_price=CBM_PRICE,
-                           last_update_date=last_update_date)
-
-
 def generate_html(products):
     # group by category
     by_category_products_dict = defaultdict(list)
@@ -94,13 +86,7 @@ def generate_html(products):
 
     build_sitemap(slugs)
 
-    # generate reports
-    reports_html_content = ""
-    for item in products:
-        item['transport_price'] = calculate_transport_price(item['dimensions'])
-    reports_html_content = generate_reports_page_html(products)
-
-    return home_page_html_content, category_pages_map, reports_html_content
+    return home_page_html_content, category_pages_map
 
 
 if __name__ == "__main__":
@@ -108,17 +94,13 @@ if __name__ == "__main__":
 
     combined_data = read_csv_files()
     copy_assets()
-    create_folder_if_not_exists(reports_folder)
 
     category_slugs = extract_field(combined_data, "category_slug")
 
     for cat_slug in category_slugs:
         create_folder_if_not_exists(output_folder + "/html/categories/" + cat_slug)
 
-    html_output, category_pages, reports_html = generate_html(combined_data)
-
-    with open(reports_folder + "/index.html", 'w') as html_file:
-        html_file.write(htmlmin.minify(reports_html))
+    html_output, category_pages = generate_html(combined_data)
 
     with open(output_folder + "/html/index.html", 'w') as html_file:
         html_file.write(htmlmin.minify(html_output))

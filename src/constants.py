@@ -1,7 +1,6 @@
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 output_folder = "output"
-reports_folder = "output/reports"
 product_files_path = "products/current.csv"
 
 CBM_PRICE = 50000
@@ -11,15 +10,4 @@ env = Environment(
     loader=FileSystemLoader('src/templates'),
     autoescape=select_autoescape(['html', 'xml'])
 )
-
-
-# Define a custom filter for formatting prices
-def format_price(value):
-    try:
-        return '{:.2f}'.format(float(value))
-    except (ValueError, TypeError):
-        return value
-
-
-# Add the custom filter to the environment
-env.filters['format_price'] = format_price
+=CNUM(GAUCHE(I2, TROUVE("x", I2) - 1)) * CNUM(STXT(I2, TROUVE("x", I2) + 1, TROUVE("x", I2, TROUVE("x", I2) + 1) - TROUVE("x", I2) - 1)) * CNUM(DROITE(I2, LONGUEUR(I2) - TROUVE("x", I2, TROUVE("x", I2) + 1)))
