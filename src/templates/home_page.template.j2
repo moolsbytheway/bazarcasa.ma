@@ -105,7 +105,74 @@
            class="ring-offset-background focus-visible:ring-ring hover:bg-primary/90 mt-4 inline-flex h-10 items-center justify-center whitespace-nowrap rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">تواصل
             معنا على الواتساب</a>
     </div>
+<style>
+    .carousel {
+    position: relative;
+    max-width: 300px;
+    margin: auto;
+}
+
+.carousel-images {
+    display: flex;
+    overflow: hidden;
+}
+
+.carousel-image {
+    max-width: 100%;
+    display: none; /* Hide all images initially */
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.left-arrow {
+    left: 0;
+}
+
+.right-arrow {
+    right: 0;
+}
+
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.carousel-image');
+    const totalImages = images.length;
+    images[currentIndex].style.display = 'block'; // Show first image
+
+    document.querySelector('.left-arrow').addEventListener('click', function() {
+        images[currentIndex].style.display = 'none'; // Hide current image
+        currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+        images[currentIndex].style.display = 'block'; // Show new image
+    });
+
+    document.querySelector('.right-arrow').addEventListener('click', function() {
+        images[currentIndex].style.display = 'none'; // Hide current image
+        currentIndex = (currentIndex + 1) % totalImages;
+        images[currentIndex].style.display = 'block'; // Show new image
+    });
+});
+
+</script>
     <main class="flex-1">
+        <div class="carousel">
+            <div class="carousel-images">
+                <img src="https://i.imgur.com/kBAp9oy.png" alt="Image 1" class="carousel-image">
+                <!-- Add more images here -->
+                <img src="https://i.imgur.com/kBAp9oy.png" alt="Image 2" class="carousel-image">
+                <img src="https://i.imgur.com/kBAp9oy.png" alt="Image 3" class="carousel-image">
+            </div>
+            <button class="carousel-button left-arrow">←</button>
+            <button class="carousel-button right-arrow">→</button>
+        </div>
+
         {{ by_category_packages | safe }}
         {% if by_category_packages == "" %}
             <div style="color: darkgreen;text-align: center;margin-top:2em">
