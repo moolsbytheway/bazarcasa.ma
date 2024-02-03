@@ -3,17 +3,11 @@ from collections import defaultdict
 
 from utils import *
 from sitemap_builder import *
-
-
-def get_last_update_date(package):
-    return package["price"]
-
-
-def generate_products_list(product, root_image_path=""):
+def generate_product_card(product, root_image_path=""):
     price_formatted = float(product['price'])
     price_formatted = f"{price_formatted:,.0f}"
 
-    template = env.get_template('fragment/packages_list.template.j2')
+    template = env.get_template('fragment/product_card.template.j2')
     return template.render(product=product, price_formatted=price_formatted,
                            show_price=product['price'] != "0",
                            root_image_path=root_image_path)
@@ -52,8 +46,8 @@ def generate_html(products):
         <div style="flex-wrap: wrap" class="flex justify-items-center gap-6 mt-8">
         """
 
-        for item in items:
-            by_category_products += generate_products_list(item)
+        for item in sorted(items, key=lambda x: x['out_of_stock']):
+            by_category_products += generate_product_card(item)
 
         by_category_products += """
                 </div>
@@ -65,23 +59,23 @@ def generate_html(products):
     home_page_html_content = generate_home_page_html(by_category_products, slugs, category_slug_map)
 
     for category, items in by_category_products_dict.items():
-        details_by_dest_packages_list = f"""
+        details_by_dest_products_list = f"""
                 <section class="w-full" style="padding-top:20px;padding-bottom:40px;">
         <div class="container px-4 md:px-6">
         <h1 style="color:#cd8454" class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">{category_slug_map[category]}</h1>
         <div style="flex-wrap: wrap" class="flex justify-items-center gap-6 mt-8">
         """
 
-        for item in items:
-            details_by_dest_packages_list += generate_products_list(item)
+        for item in sorted(items, key=lambda x: x['out_of_stock']):
+            details_by_dest_products_list += generate_product_card(item)
 
-        details_by_dest_packages_list += """
+        details_by_dest_products_list += """
                 </div>
             </div>
         </section>
         """
         cat_page_title = f"بازار كازا - {category_slug_map[category]}"
-        category_pages_map[category] = generate_home_page_html(details_by_dest_packages_list, slugs, category_slug_map,
+        category_pages_map[category] = generate_home_page_html(details_by_dest_products_list, slugs, category_slug_map,
                                                                category, cat_page_title)
 
     build_sitemap(slugs)

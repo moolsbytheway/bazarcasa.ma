@@ -1,4 +1,16 @@
 <div class="relative group overflow-hidden rounded-lg" style="width:300px;box-shadow:0 0 2px 0 #000000a1">
+
+    {% if product.out_of_stock != "" %}
+        <span style="position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: #FF5722;
+    padding: 5px;
+    font-weight: bold;
+    color: white;">غير متوفر حاليا</span>
+    {% endif %}
     <img src='{% if product.image == "" %}
 /img/placeholder.webp
 {% else %}
@@ -10,9 +22,10 @@
         {{ product.slug }}
     </h3>
         <p class="text-sm" style="color:darkred">BC-000{{ product.id }}</p>
-        <p class="text-sm" style="color: gray"> أقل كمية: {{ product.minimum_quantity  }}</p>
+        <p class="text-sm" style="color: gray"> أقل كمية: {{ product.minimum_quantity }}</p>
         {% if show_price %}
-            <h4 style="color:#d27d00" class="font-semibold text-base md:text-lg text-base"> إبتداءً من: {{ price_formatted + " أوقية للوحدة" }}</h4>
+            <h4 style="color:#d27d00" class="font-semibold text-base md:text-lg text-base"> إبتداءً
+                من: {{ price_formatted + " أوقية للوحدة" }}</h4>
         {% endif %}
         <p class="text-sm text-gray-500"> {{ product.description }} </p>
     </div>
