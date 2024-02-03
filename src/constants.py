@@ -10,4 +10,3 @@ env = Environment(
     loader=FileSystemLoader('src/templates'),
     autoescape=select_autoescape(['html', 'xml'])
 )
-=CNUM(GAUCHE(I2, TROUVE("x", I2) - 1)) * CNUM(STXT(I2, TROUVE("x", I2) + 1, TROUVE("x", I2, TROUVE("x", I2) + 1) - TROUVE("x", I2) - 1)) * CNUM(DROITE(I2, LONGUEUR(I2) - TROUVE("x", I2, TROUVE("x", I2) + 1)))
