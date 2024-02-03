@@ -9,15 +9,35 @@
     background: #FF5722;
     padding: 5px;
     font-weight: bold;
+    z-index: 1;
     color: white;">غير متوفر حاليا</span>
     {% endif %}
-    <img src='{% if product.image == "" %}
-/img/placeholder.webp
-{% else %}
-{{ product.image }}
-{% endif %}' alt="{{ product.description }}" width="300" height="300"
-         class="object-cover w-full h-60"
-         style="aspect-ratio: 300 / 300; width:300px; height:300px; object-fit: cover;">
+
+    <div class="carousel">
+        <div class="carousel-images">
+            <img src='
+            {% if product.image == "" %}
+                /img/placeholder.webp
+            {% else %}
+                {{ product.image }}
+            {% endif %}'
+                 alt="{{ product.description }}" width="300" height="300"
+                 class="object-cover w-full h-60 carousel-image"
+                 style="aspect-ratio: 300 / 300; width:300px; height:300px; object-fit: cover;">
+        </div>
+        <button class="carousel-button left-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round" class="feather feather-chevron-left">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <button class="carousel-button right-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+    </div>
     <div class="bg-white p-4"><h3 class="font-semibold text-lg md:text-xl">
         {{ product.slug }}
     </h3>
