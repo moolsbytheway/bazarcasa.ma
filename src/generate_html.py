@@ -37,6 +37,7 @@ def generate_html(products):
 
     category_slug_map = {
         "dates": "تمور",
+        "barber": "الحلاقة",
         "cosmetics": "منتجات التجميل"
     }
 
