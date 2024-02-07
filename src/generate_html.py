@@ -77,7 +77,8 @@ def generate_html(products):
     </section>
     """
 
-    home_page_html_content = generate_home_page_html(by_category_products, featured_items_html, slugs, category_slug_map)
+    home_page_html_content = generate_home_page_html(by_category_products, featured_items_html, slugs,
+                                                     category_slug_map)
 
     category_pages_map = {}
     for category, items in by_category_products_dict.items():
@@ -97,7 +98,8 @@ def generate_html(products):
         </section>
         """
         cat_page_title = f"بازار كازا - {category_slug_map[category]}"
-        category_pages_map[category] = generate_home_page_html(details_by_dest_products_list, slugs, category_slug_map,
+        category_pages_map[category] = generate_home_page_html(details_by_dest_products_list, "", slugs,
+                                                               category_slug_map,
                                                                category, cat_page_title)
 
     build_sitemap(slugs)
