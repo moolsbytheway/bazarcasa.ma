@@ -107,6 +107,7 @@
             معنا على الواتساب</a>
     </div>
     <main class="flex-1">
+        {{ featured_items_html | safe }}
         {{ by_category_packages | safe }}
         {% if by_category_packages == "" %}
             <div style="color: darkgreen;text-align: center;margin-top:2em">

@@ -15,12 +15,13 @@ def generate_product_card(product, root_image_path=""):
                            root_image_path=root_image_path)
 
 
-def generate_home_page_html(by_category_packages, categories, cat_map, filter_on_category=None,
+def generate_home_page_html(by_category_packages, featured_items_html, categories, cat_map, filter_on_category=None,
                             page_title=DEFAULT_PAGE_TITLE):
     template = env.get_template('home_page.template.j2')
     last_update_date = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
     return template.render(by_category_packages=by_category_packages,
                            categories=categories,
+                           featured_items_html=featured_items_html,
                            filter_on_category=filter_on_category,
                            cat_map=cat_map,
                            page_title=page_title,
@@ -59,9 +60,26 @@ def generate_html(products):
         </section>
         """
 
-    category_pages_map = {}
-    home_page_html_content = generate_home_page_html(by_category_products, slugs, category_slug_map)
+    featured_items = [item for item in products if item['featured'] == "1"]
+    featured_items_html = f"""
+                <section class="w-full" style="padding-top:20px;padding-bottom:40px;">
+        <div class="container px-4 md:px-6">
+        <h1 style="color:#cd8454" class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">منتجات مميزة</h1>
+        <div style="flex-wrap: wrap" class="flex justify-items-center gap-6 mt-8">
+        """
 
+    for featured_item in featured_items:
+        featured_items_html += generate_product_card(featured_item)
+
+    featured_items_html += """
+            </div>
+        </div>
+    </section>
+    """
+
+    home_page_html_content = generate_home_page_html(by_category_products, featured_items_html, slugs, category_slug_map)
+
+    category_pages_map = {}
     for category, items in by_category_products_dict.items():
         details_by_dest_products_list = f"""
                 <section class="w-full" style="padding-top:20px;padding-bottom:40px;">
